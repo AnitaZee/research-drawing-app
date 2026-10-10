@@ -4,54 +4,18 @@ A small interactive drawing application created for my Capstone Research Milesto
 
 Technologies Used
 
-Frontend
+Frontend: React (JavaScript/JSX), Vite, Tailwind CSS, HTML5 Canvas API, Anime.js
 
-React (JavaScript/JSX)
+Backend: Node.js,Express.js, Socket.IO
 
-Vite
+Development Tools: Git and GitHub,npm,VS Code, Ubuntu/WSL
 
-Tailwind CSS
-
-HTML5 Canvas API
-
-Anime.js
-
-Backend
-
-Node.js
-
-Express.js
-
-Socket.IO
-
-Development Tools
-
-Git and GitHub
-
-npm
-
-VS Code
-
-Ubuntu/WSL
-
-Features
-
-Draw on an HTML5 canvas
-
-Change brush colors and sizes
-
-Switch between brush and eraser
-
-Clear the canvas
-
-Submit drawings to a shared gallery
-
+Features: Draw on an HTML5 canvas, Change brush colors and sizes,
+Switch between brush and eraser, Clear the canvas, Submit drawings to a shared gallery,
 View drawings in real time across connected browser tabs using Socket.IO
-
 Animate submitted drawings using Anime.js
 
-Running the Project
-
+Running the Project:
 1. Start the backend
 
 cd server
