@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import './App.css'
+import { animate } from 'animejs'
 
 
 
@@ -103,34 +104,43 @@ function App() {
       )}
 
       {view === 'display' && (
-        <>
-          <h1>Main Display</h1>
+  <>
+    <h1>Main Display</h1>
 
-          {submittedDrawings.length > 0 ? (
-            <div>
-              {submittedDrawings.map((image, index) => (
-                <img
-                  key={index}
-                  src={image}
-                  alt={`Drawing ${index + 1}`}
-                  width="250"
-                  height="200"
-                  style={{ margin: '10px', backgroundColor: 'white' }}
-                />
-              ))}
-            </div>
-          ) : (
-            <p>No drawings submitted yet.</p>
-          )}
+    {submittedDrawings.length > 0 ? (
+      <div>
+        {submittedDrawings.map((image, index) => (
+          <img
+            key={index}
+            ref={(element) => {
+              if (element) {
+                animate(element, {
+                  opacity: [0, 1],
+                  scale: [0.8, 1],
+                  duration: 600,
+                  ease: 'out(3)',
+                })
+              }
+            }}
+            src={image}
+            alt={`Drawing ${index + 1}`}
+            width="250"
+            height="200"
+            style={{ margin: '10px', backgroundColor: 'white' }}
+          />
+        ))}
+      </div>
+    ) : (
+      <p>No drawings submitted yet.</p>
+    )}
 
-          <br />
+    <br />
 
-          <button onClick={() => setView('home')}>
-            Back
-          </button>
-        </>
-      )}
-
+    <button onClick={() => setView('home')}>
+      Back
+    </button>
+  </>
+)}
       {view === 'controller' && (
         <>
 
