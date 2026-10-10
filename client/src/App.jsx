@@ -8,10 +8,30 @@ function App() {
   const canvasRef = useRef(null)
   const [isDrawing, setIsDrawing] = useState(false)
   const [submittedDrawings, setSubmittedDrawings] = useState([])
+  //color
+  const [brushColor, setBrushColor] = useState('#000000')
+  //brushsize
+  const [brushSize, setBrushSize] = useState(5)
+  //the eraser is not just paint over with white
+  //it removes pixels from canvas
+  const [isErasing, setIsErasing] = useState(false)
+
 
   const startDrawing = (event) => {
     const canvas = canvasRef.current
     const context = canvas.getContext('2d')
+
+    context.globalCompositeOperation = isErasing
+  //erases existing pixels
+    ? 'destination-out'
+  //normal drawing mode
+     : 'source-over'
+
+    context.strokeStyle = brushColor
+
+    context.lineWidth = brushSize
+    context.lineCap = 'round'
+    context.lineJoin = 'round'
 
     context.beginPath()
     context.moveTo(event.nativeEvent.offsetX, event.nativeEvent.offsetY)
@@ -106,6 +126,36 @@ function App() {
         <>
 
           <p>Draw Something Below:</p>
+
+          
+          <label>
+            Brush Color:
+            <input
+              type = "color"
+              value = {brushColor}
+              onChange={(event) => setBrushColor(event.target.value)}
+            />
+          </label>
+
+          <label>
+            Brush Size: {brushSize}px
+            <input
+              type="range"
+              min="1"
+              max="50"
+              value={brushSize}
+              onChange={(event) => setBrushSize(Number(event.target.value))}
+            />
+          </label>
+
+          <button onClick={() => setIsErasing(false)}>
+            Brush
+          </button>
+
+          <button onClick={() => setIsErasing(true)}>
+            Eraser
+          </button>
+
 
           <canvas
             ref={canvasRef}
