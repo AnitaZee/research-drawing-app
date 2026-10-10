@@ -7,6 +7,7 @@ function App() {
   const [view, setView] = useState('home')
   const canvasRef = useRef(null)
   const [isDrawing, setIsDrawing] = useState(false)
+  const [submittedDrawings, setSubmittedDrawings] = useState([])
 
   const startDrawing = (event) => {
     const canvas = canvasRef.current
@@ -45,6 +46,16 @@ function App() {
 
   }
 
+  const submitDrawing = () => {
+    const canvas = canvasRef.current
+
+    const image = canvas.toDataURL('image/png')
+
+    setSubmittedDrawings(pervDrawings => [...pervDrawings, image])
+    setView('display')
+
+  }
+
   return (
     <div>
       {view === 'home' && (
@@ -65,7 +76,25 @@ function App() {
       {view === 'display' && (
         <>
           <h1>Main Display</h1>
-          <p>Submitted drawings will appear here.</p>
+
+          {submittedDrawings.length > 0 ? (
+            <div>
+              {submittedDrawings.map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt={`Drawing ${index + 1}`}
+                  width="250"
+                  height="200"
+                  style={{ margin: '10px', backgroundColor: 'white' }}
+                />
+             ))}
+      </div>
+    ) : (
+      <p>No drawings submitted yet.</p>
+    )}
+
+    <br />
 
           <button onClick={() => setView('home')}>
             Back 
@@ -97,7 +126,9 @@ function App() {
             Clear
             </button>
             
-          <button>Submit Drawing</button>
+          <button onClick = {submitDrawing}>
+            Submit Drawing
+          </button>
 
           <br />
 
